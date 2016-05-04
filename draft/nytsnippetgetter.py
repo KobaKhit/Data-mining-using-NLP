@@ -86,22 +86,27 @@ def get_data(TOPICS, NPAGES=None, BEGINDATE=None, ENDDATE=None, VERBOSE=0, LIMIT
 
 def main():
     
-    topics = ['clinton','sex'] # list of topics for articles
-    npages = [10,10]
-    df = get_data(topics, npages, VERBOSE=1)
+    # topics = ['clinton','sex'] # list of topics for articles
+    # npages = [10,10]
+    # df = get_data(topics, npages, VERBOSE=1)
                 
     # dump urls into a txt
-    weburl = [x['weburl'] for x in df]
-    with open('URList.txt', mode='wt') as myfile:
-        myfile.write('\n'.join(weburl))
-
+    # weburl = [x['weburl'] for x in df]
+    # with open('URList.txt', mode='wt') as myfile:
+    #    myfile.write('\n'.join(weburl))
+   
+    # get available number of pages for each topic. Each page is equivalent to 10 articles
+    topics=['economics','politics','espionage','global+warming', 'clinton', 'sanders', 'guns', 
+        'cancer', 'sex']
+    npages = [1500,1000,500,100,100,100,100,100,100]
+    # topics=['economics','politics']
+    get_data(topics, BEGINDATE = 20131213, LIMITS=True) # articles written since 2013-December-13
+    articles = get_data(TOPICS = topics, NPAGES = npages, BEGINDATE = 20131213)
+    
     # save as json
-    datajson = json.dumps({"data": df})
+    datajson = json.dumps({"data": articles})
     with open("snippetdata.json", "w") as jsonfile:
         jsonfile.write(datajson)
-
-    print(("Documents returned: ",len(weburl)))
-    print("\nDone in ", time.time()-start_time)
 
 if __name__ == "__main__":
     main()
