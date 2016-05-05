@@ -29,7 +29,7 @@ get_data(topics,BEGINDATE = 20150101, LIMITS=True)
 npages = [100,100,100]
 articles = get_data(topics,npages, BEGINDATE = 20150101, FILENAME='example.json')
 ```
-<pre class="prettyprint" style = "background:white">
+<pre class="prettyprint" style = "background-color:white">
   Topics:  ['bernie+sanders', 'hillary+clinton', 'donald+trump']
   NPages:  [100, 100, 100] 
   
