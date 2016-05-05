@@ -1,5 +1,4 @@
 *.pyc
 draft/.ipynb_checkpoints/*
-draft/__pycache__
 .DS_Store
 .ipynb_checkpoints

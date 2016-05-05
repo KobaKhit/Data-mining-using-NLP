@@ -1,23 +1,40 @@
 import json
 from urllib.request import urlopen
 from pprint import pprint
-# import pandas as pd
 import json
 import codecs
 import time
+from datetime import datetime
 
 # to do 
 #   - define nytclass field in the article object (use ["keywords"]["subject"],["nytddes"])
 
-def get_data(TOPICS, NPAGES=None, BEGINDATE=None, ENDDATE=None, VERBOSE=0, LIMITS=False):
+def save_json(df,filename="nytarticles.json"):
+    # save df as {"data": df} json object
+    filename = str(datetime.now().strftime("%Y-%m-%d")) + "-" + filename
+    datajson = json.dumps({"data": df})
+    with open(filename, "w") as jsonfile:
+        jsonfile.write(datajson)
+
+def get_data(TOPICS, NPAGES=None, BEGINDATE=None, ENDDATE=None, VERBOSE=0, LIMITS=False,
+    FILENAME=None):
+    # Downloads data about articles from nytimes.com
+    #   - TOPICS = list of topics, ex.g. ["economics", "globale warming"]
+    #   - NPAGES = list of integers which set the number of pages to download 
+    #              for the topics, ex.g. [10, 15]. One page is equal to 10 articles.
+    #   - BEGINDATE, ENDDATE - integer which limit the published date range, YYYYMMDD
+    #   - VERBOSE = display all output
+    #   - LIMITS = display number of pages available for each topic. If True then data
+    #              is not downloaded.
+
     # start timer
     start_time = time.time()
 
     url = 'http://query.nytimes.com/svc/add/v1/sitesearch.json?' # starting url 
 
     if BEGINDATE is not None:
-            # DATERANGE = "fromYYYYMMDDtoYYYYMMDD" or "fromYYYYMMDD"
-            url = url + "&begin_date=" + str(BEGINDATE)
+        # DATERANGE = "fromYYYYMMDDtoYYYYMMDD" or "fromYYYYMMDD"
+        url = url + "&begin_date=" + str(BEGINDATE)
 
     if ENDDATE is not None:
         # DATERANGE = "fromYYYYMMDDtoYYYYMMDD" or "fromYYYYMMDD"
@@ -80,6 +97,11 @@ def get_data(TOPICS, NPAGES=None, BEGINDATE=None, ENDDATE=None, VERBOSE=0, LIMIT
 
         progress += k
         print(i, "is done | " + str(progress) + "/" + str(sum(npages)))
+
+    # save data as json
+    if FILENAME is not None:
+        save_json(df, FILENAME)
+
     print("\nDone in ", time.time()-start_time, "seconds")
     return(df)
 
@@ -88,7 +110,7 @@ def main():
     
     # topics = ['clinton','sex'] # list of topics for articles
     # npages = [10,10]
-    # df = get_data(topics, npages, VERBOSE=1)
+    # df = get_data(topics, npages, VERBOSE=1, FILENAME='test.json')
                 
     # dump urls into a txt
     # weburl = [x['weburl'] for x in df]
@@ -96,17 +118,26 @@ def main():
     #    myfile.write('\n'.join(weburl))
    
     # get available number of pages for each topic. Each page is equivalent to 10 articles
-    topics=['economics','politics','espionage','global+warming', 'clinton', 'sanders', 'guns', 
-        'cancer', 'sex']
-    npages = [1500,1000,500,100,100,100,100,100,100]
-    # topics=['economics','politics']
-    get_data(topics, BEGINDATE = 20131213, LIMITS=True) # articles written since 2013-December-13
-    articles = get_data(TOPICS = topics, NPAGES = npages, BEGINDATE = 20131213)
+    # topics=['economics','politics','espionage','global+warming', 'clinton', 'sanders', 'guns', 
+    #     'cancer', 'sex']
+    # npages = [1500,1000,500,100,100,100,100,100,100]
+    # # topics=['economics','politics']
+    # get_data(topics, BEGINDATE = 20131213, LIMITS=True) # articles written since 2013-December-13
+    # articles = get_data(TOPICS = topics, NPAGES = npages, BEGINDATE = 20131213)
+
+    # topics = ["bernie+sanders","hillary+clinton","donald+trump"]
+    # get_data(topics, LIMITS=True)
+
+    # npages = [100,100,100]
+    # articles = get_data(topics,npages, BEGINDATE = 20150101, FILENAME='politics.json')
+    # print(articles[1])
     
     # save as json
-    datajson = json.dumps({"data": articles})
-    with open("snippetdata.json", "w") as jsonfile:
-        jsonfile.write(datajson)
+    # datajson = json.dumps({"data": articles})
+    # with open("snippetdata.json", "w") as jsonfile:
+    #     jsonfile.write(datajson)
+    return
+
 
 if __name__ == "__main__":
     main()
