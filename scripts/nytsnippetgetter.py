@@ -79,21 +79,22 @@ def get_data(TOPICS, NPAGES=None, BEGINDATE=None, ENDDATE=None, VERBOSE=0, LIMIT
 
             for j in range(0,len(data["response"]["docs"])):
                 row = data["response"]["docs"][j]
-                df.append(
-                    {
-                    "title": row["headline"]["main"],
-                    "author": row["byline"].replace("By ", '') if row["byline"] is not None else "",
-                    "snippet": row["snippet"],
-                    "weburl": row["web_url"],
-                    "abstract": row["abstract"],
-                    "lead_paragraph": row["lead_paragraph"],                  
-                    "section_name": row["section_name"],
-                    "date_published": row["pub_date"],
-                    "date_modified": row["updated"],
-                    "nytclass": row["nytddes"],
-                    "keywords": row['keywords'],
-                    "user_topic": i
-                    })
+                if row["pub_date"] is not None:
+                    df.append(
+                        {
+                        "title": row["headline"]["main"],
+                        "author": row["byline"].replace("By ", '') if row["byline"] is not None else "",
+                        "snippet": row["snippet"],
+                        "weburl": row["web_url"],
+                        "abstract": row["abstract"],
+                        "lead_paragraph": row["lead_paragraph"],                  
+                        "section_name": row["section_name"],
+                        "date_published": row["pub_date"],
+                        "date_modified": row["updated"],
+                        "nytclass": row["nytddes"],
+                        "keywords": row['keywords'],
+                        "user_topic": i
+                        })
 
         progress += k
         print(i, "is done | " + str(progress) + "/" + str(sum(npages)))
