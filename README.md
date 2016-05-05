@@ -25,7 +25,8 @@ get_data(topics,BEGINDATE = 20150101, LIMITS=True)
 
 ```python
 # Download articles. BEGINDATE, ENDDATE format is YYYYMMDD.
-# If FILENAME is not None saves a local copy
+# If FILENAME is not None saves a local copy with date prepended,
+# ex.g. 2016-05-05-example.json
 npages = [100,100,100]
 articles = get_data(topics,npages, BEGINDATE = 20150101, FILENAME='example.json')
 ```
