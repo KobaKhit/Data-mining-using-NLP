@@ -14,12 +14,12 @@ from nytsnippetgetter import get_data
 # See how many pages are available for topics. One page is equivalent to 10 articles
 topics = ["bernie+sanders","hillary+clinton","donald+trump"]
 get_data(topics,BEGINDATE = 20150101, LIMITS=True)
-```
 
-    Total number of pages available (each page is 10 articles): 
-    bernie+sanders :  2672
-    hillary+clinton :  4991
-    donald+trump :  5071
+  Total number of pages available (each page is 10 articles): 
+  bernie+sanders :  2672
+  hillary+clinton :  4991
+  donald+trump :  5071
+```
 
 
 
@@ -28,7 +28,7 @@ get_data(topics,BEGINDATE = 20150101, LIMITS=True)
 # If FILENAME is not None saves a local copy
 npages = [100,100,100]
 articles = get_data(topics,npages, BEGINDATE = 20150101, FILENAME='example.json')
-```
+
 
   Topics:  ['bernie+sanders', 'hillary+clinton', 'donald+trump']
   NPages:  [100, 100, 100] 
@@ -40,12 +40,12 @@ articles = get_data(topics,npages, BEGINDATE = 20150101, FILENAME='example.json'
   donald+trump is done | 300/300
 
   Done in  31.600661993026733 seconds
-
+```
 
 
 ```python
-articles[1]
-```
+print(articles[1])
+
 
   {'abstract': "Editorial underscores how Sen Bernie Sanders's campaign for president has benefited Democratic Party, particularly in reminder it has given party of lingering economic pain many Americans are experiencing; calls on Hillary Clinton and other party leaders to work to incorporate Sanders and his supporters in party's voting coalition.",
    'author': 'THE EDITORIAL BOARD',
@@ -69,7 +69,7 @@ articles[1]
    'title': 'Bernie Sanders’s Gift to His Party',
    'user_topic': 'bernie+sanders',
    'weburl': 'http://www.nytimes.com/2016/05/03/opinion/bernie-sanderss-gift-to-his-party.html'}
-
+```
 
 ```python
 # Load saved data into python
@@ -78,8 +78,8 @@ import json
 with open('2016-05-05-example.json') as json_data:
     articles = json.load(json_data)["data"]
 
-articles[1]
-```
+print(articles[1])
+
 
   {'abstract': "Editorial underscores how Sen Bernie Sanders's campaign for president has benefited Democratic Party, particularly in reminder it has given party of lingering economic pain many Americans are experiencing; calls on Hillary Clinton and other party leaders to work to incorporate Sanders and his supporters in party's voting coalition.",
    'author': 'THE EDITORIAL BOARD',
@@ -103,7 +103,7 @@ articles[1]
    'title': 'Bernie Sanders’s Gift to His Party',
    'user_topic': 'bernie+sanders',
    'weburl': 'http://www.nytimes.com/2016/05/03/opinion/bernie-sanderss-gift-to-his-party.html'}
-
+```
 
 
 
