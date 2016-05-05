@@ -15,10 +15,10 @@ from nytsnippetgetter import get_data
 topics = ["bernie+sanders","hillary+clinton","donald+trump"]
 get_data(topics,BEGINDATE = 20150101, LIMITS=True)
 
-  Total number of pages available (each page is 10 articles): 
-  bernie+sanders :  2672
-  hillary+clinton :  4991
-  donald+trump :  5071
+      Total number of pages available (each page is 10 articles): 
+      bernie+sanders :  2672
+      hillary+clinton :  4991
+      donald+trump :  5071
 ```
 
 
