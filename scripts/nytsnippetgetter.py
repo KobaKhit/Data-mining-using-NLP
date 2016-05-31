@@ -178,12 +178,10 @@ def get_data(TOPICS, NDOCS=None, BEGINDATE=None, ENDDATE=None, VERBOSE=0, LIMITS
 
 def main():
     
-    topics=['donald+trump','hillary+clinton', 
-        'bernie+sanders', 'ted+cruz', 'ben+carson','marco+rubio'] # list of topics for articles
-    get_data(topics, BEGINDATE=20140101, LIMITS=True)
-    ndocs = [10]
-    articles = get_data(topics, BEGINDATE=20140101, FILENAME='election-data.json', VERBOSE=1)
-    print(len(set([x['snippet'] for x in df])))
+    topics=['space','sports','tech','politics','stocks'] # list of topics for articles
+    get_data(topics, BEGINDATE=20160101, LIMITS=True)
+    articles = get_data(topics, BEGINDATE=20160101, FILENAME='diff-topics.json', VERBOSE=1)
+    
                 
     # dump urls into a txt
     # weburl = [x['weburl'] for x in df]
