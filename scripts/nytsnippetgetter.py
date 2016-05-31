@@ -53,7 +53,7 @@ def save_json(df,filename="nytarticles.json"):
         jsonfile.write(datajson)
 
 
-def get_data(TOPICS, NDOCS=None, BEGINDATE=None, ENDDATE=None, VERBOSE=0, LIMITS=False,
+def get_data(TOPICS=[None], NDOCS=None, BEGINDATE=None, ENDDATE=None, VERBOSE=0, LIMITS=False,
     FILENAME=None):
     # Downloads data about articles from nytimes.com
     #   - TOPICS = list of topics, ex.g. ["economics", "globale warming"]
@@ -83,27 +83,37 @@ def get_data(TOPICS, NDOCS=None, BEGINDATE=None, ENDDATE=None, VERBOSE=0, LIMITS
     else:
         ENDDATE = date.today()    
 
-    url = url+"&sort=desc&q="
+    url = url+"&sort=desc"
 
     reader = codecs.getreader("utf-8")
     
     if NDOCS is not None and len(NDOCS)>1:
         npages = NDOCS
-    elif NDOCS is not None and len(NDOCS)==1:
+    elif NDOCS is not None and len(NDOCS)==1 and TOPICS[0] != None:
         npages = [NDOCS[0] for x in range(0,len(TOPICS))]
+    elif NDOCS is None and TOPICS[0] == None:
+        npages = [json.load(reader(urlopen(url)))["response"]["meta"]['hits']]
     else:
-        npages = list(map(lambda x: json.load(reader(urlopen(url + x)))["response"]["meta"]['hits'], TOPICS))
+        print(TOPICS[0])
+        npages = list(map(lambda x: json.load(reader(urlopen(url + '&q=' + x)))["response"]["meta"]['hits'], TOPICS))
+
 
     date_range = [x.strftime('%Y%m%d') for x in  perdelta(BEGINDATE,ENDDATE, timedelta(days=1))]
     date_range = date_range[::-1] # reverse list
 
     if LIMITS ==  True:
-        npages = list(map(lambda x: json.load(reader(urlopen(url + x)))["response"]["meta"]['hits'], TOPICS))
-        print("Total number of articles available: ", sum(npages))
-        print("Date range: ", date_range[0],"->", date_range[-1],"\n")
-        for i,k in zip(TOPICS,npages):
-            print(i,": " ,k)
-        return
+        if TOPICS[0] is not None:
+            npages = list(map(lambda x: json.load(reader(urlopen(url + '&q=' + x)))["response"]["meta"]['hits'], TOPICS))
+            print("Total number of articles available: ", sum(npages))
+            print("Date range: ", date_range[0],"->", date_range[-1],"\n")
+            for i,k in zip(TOPICS,npages):
+                print(i,": " ,k)
+            return
+        else:
+            npages = [json.load(reader(urlopen(url)))["response"]["meta"]['hits']]
+            print("Total number of articles available: ", sum(npages))
+            print("Date range: ", date_range[0],"->", date_range[-1],"\n")
+            return
 
 
     print("Topics: ", TOPICS)
@@ -134,13 +144,17 @@ def get_data(TOPICS, NDOCS=None, BEGINDATE=None, ENDDATE=None, VERBOSE=0, LIMITS
             counter += 1
 
             url = URL.format(date1, nextdate,i)
-            
+
+            # remove query parameter from URL if i is None
+            if i is None:
+                url = url.replace('&q=None', '')
+
             response = urlopen(url)
             data = json.load(reader(response))
 
             counter2 = 0
             while len(scrape(data,i)) > 0 and docs < k and counter2 < 101:
-            # repeat while next page contains 0 results or we get enough docs 
+            # repeat until next page contains 0 results or we get enough docs 
                 urli = url + "&page=" + str(counter2) # add page to url
                 counter2 += 1
                 response = urlopen(urli)
@@ -179,7 +193,7 @@ def get_data(TOPICS, NDOCS=None, BEGINDATE=None, ENDDATE=None, VERBOSE=0, LIMITS
 def main():
     
     topics=['space','sports','tech','politics','stocks'] # list of topics for articles
-    get_data(topics, BEGINDATE=20160101, LIMITS=True)
+    get_data(BEGINDATE=20160101, LIMITS=True)
     articles = get_data(topics, BEGINDATE=20160101, FILENAME='diff-topics.json', VERBOSE=1)
     
                 
