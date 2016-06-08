@@ -1,6 +1,6 @@
 # Data-mining-using-NLP
 
-[<img src="img/ldavis.png" width = "100%"/>](https://github.com/KobaKhit/Data-mining-using-NLP/blob/master/img/ldavis.png)
+<a href = "https://github.com/KobaKhit/Data-mining-using-NLP/blob/master/img/ldavis.png" target = "_blank"><img src="img/ldavis.png" width = "100%"/></a>
 
 In this project we are looking for a possible use of the new york times articles as training data for Natural Language Processing projects.
 
@@ -10,7 +10,7 @@ We also wrote an alternative scraper `nytsnippetgetter.py` that does not parse t
 
 # Code and Results
 
-To see the code and nitty visualization of the LDA model topics check out [this notebook](http://nbviewer.jupyter.org/github/KobaKhit/Data-mining-using-NLP/blob/0a09bd8ddd7bb415d7275caedb92ff7eb7f8c4fe/draft/simple-intro.ipynb#topic=0&lambda=1&term=)
+To see the code and see how to do the nitty visualization of the LDA model topics check out [simple-intro.ipynb](http://nbviewer.jupyter.org/github/KobaKhit/Data-mining-using-NLP/blob/0a09bd8ddd7bb415d7275caedb92ff7eb7f8c4fe/draft/simple-intro.ipynb#topic=0&lambda=1&term=)
 
 ## Feature Extraction Using Topic  Modelling
 
