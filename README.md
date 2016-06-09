@@ -1,5 +1,11 @@
 # Data-mining-using-NLP
 
+by [Harshini Konduri](https://www.linkedin.com/in/harshini-konduri-8a4b89105), 
+[Pallavi Damle](https://www.linkedin.com/in/pallavidamle), 
+[Shantanu Saha](https://www.linkedin.com/in/1saha), 
+[Harsh Vardhanshukla](https://www.linkedin.com/in/hvshukla),
+[Koba Khitalishvili](https://www.linkedin.com/in/kobakhit)
+
 <a href = "https://cdn.rawgit.com/KobaKhit/Data-mining-using-NLP/master/img/lda_vis.html" target = "_blank"><img src="img/ldavis.png" width = "100%"/></a>
 
 In this project we are looking for a possible use of the new york times articles as training data for Natural Language Processing projects.
