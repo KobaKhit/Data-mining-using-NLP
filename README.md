@@ -1,6 +1,6 @@
 # Data-mining-using-NLP
 
-<a href = "https://github.com/KobaKhit/Data-mining-using-NLP/blob/master/img/lda_vis.html" target = "_blank"><img src="img/ldavis.png" width = "100%"/></a>
+<a href = "https://cdn.rawgit.com/KobaKhit/Data-mining-using-NLP/master/img/lda_vis.md" target = "_blank"><img src="img/ldavis.png" width = "100%"/></a>
 
 In this project we are looking for a possible use of the new york times articles as training data for Natural Language Processing projects.
 

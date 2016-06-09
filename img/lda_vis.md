@@ -2,6 +2,28 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/bmabey/pyLDAvis/files/ldavis.v1.0.0.css">
 
 
+# New york articles about election candidates
+
+## Data
+The corpus contains abstracts of articles written about donald trump, bernie sanders, hillary clinton, and ted cruz as returned from the [NYT search engine](http://query.nytimes.com/search/sitesearch/?).
+  
+  - N articles:  17327
+  - N unique articles:  12280
+  - N unique words:  28513
+
+## Latent Dirichlet Allocation Model
+
+```
+lda = LatentDirichletAllocation(n_topics=40, 
+                                max_iter=5,
+                                # doc_topic_prior = 0.3,
+                                # topic_word_prior = 0.3,
+                                learning_method='online',
+                                # learning_offset=50.,
+                                random_state=1729)
+```
+
+
 <div id="ldavis_el1368461317083368985342172"></div>
 <script type="text/javascript">
 
